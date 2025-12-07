@@ -10,9 +10,9 @@ services:
     command: ["python", "main.py", "--csv", "data.csv", "--failed-csv", "failed_cmp.csv", "--error-log", "scrap.logs", "--retries", "2"]
     networks:
       - default
-      - comerciantes
+      - comerciantes_net
 
 networks:
-  comerciantes:
+  comerciantes_net:
     external: true
-    name: comerciantes_default
+    name: comerciantes_net

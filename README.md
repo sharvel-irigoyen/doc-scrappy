@@ -58,7 +58,7 @@ Volumes already mount `data.csv` (read-only) and `failed_cmp.csv` (read/write). 
 ```
 
 ### Using an existing MySQL container
-- Set `DB_HOST` to the MySQL container name (e.g., `comerciantes-db`) and ensure the scraper joins the same Docker network (by default this compose joins `comerciantes_default`; change the name if your network differs).
+- Set `DB_HOST` to the MySQL container name (e.g., `comerciantes-db`) and ensure the scraper joins the same Docker network (by default this compose joins `comerciantes_net`; change the name if your network differs).
 - Alternatively, if MySQL is published on the host (e.g., port 3307), set `DB_HOST=host.docker.internal` and `DB_PORT=3307`, or use `network_mode: host` on Linux.
 
 ## reCAPTCHA v3 notes
