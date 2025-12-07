@@ -1,14 +1,14 @@
 # CMP Scraper
 
-Scrapea https://aplicaciones.cmp.org.pe/conoce_a_tu_medico/ para un listado de CMP en CSV, guarda estado y especialidades en MySQL y registra fallos.
+Scrapes https://aplicaciones.cmp.org.pe/conoce_a_tu_medico/ for a list of CMP numbers in a CSV, stores doctor status and specialties into MySQL, and logs failures for retries.
 
-## Requisitos
+## Requirements
 - Python 3.12+
-- MySQL accesible (tabla se crea si no existe)
-- Navegador Playwright Chromium descargado (`python -m playwright install chromium`)
-- CSV de entrada (ej. `data.csv`, una columna con CMP)
+- MySQL reachable (tables are created if missing)
+- Playwright Chromium downloaded (`python -m playwright install chromium`)
+- Input CSV (e.g., `data.csv`, one column with CMP codes)
 
-## Variables de entorno (.env)
+## Environment (.env)
 ```
 DB_HOST=localhost
 DB_PORT=3306
@@ -26,7 +26,7 @@ MAIL_FROM_NAME=...
 MAIL_TO=...
 ```
 
-## Instalación local
+## Local setup
 ```
 python3 -m venv .venv
 source .venv/bin/activate
@@ -34,22 +34,22 @@ pip install -r requirements.txt
 python -m playwright install chromium
 ```
 
-## Uso
+## Run
 ```
 python main.py --csv data.csv --failed-csv failed_cmp.csv --error-log scrap.logs --retries 2 [--headed]
 ```
-- `--failed-csv`: archivo donde se listan CMP fallidos (solo códigos).
-- `--error-log`: detalle de errores con timestamp.
-- `--retries`: reintentos por CMP.
-- `--headed`: abre navegador visible (mejor score en reCAPTCHA v3).
+- `--failed-csv`: file to list failed CMPs (only codes).
+- `--error-log`: detailed error log with timestamps.
+- `--retries`: retries per CMP before marking failed.
+- `--headed`: launches a visible browser (often improves reCAPTCHA v3 score).
 
 ## Docker
-Construir y ejecutar:
+Build and run:
 ```
 docker compose build
 docker compose run --rm scraper
 ```
-Volúmenes ya montan `data.csv` y `failed_cmp.csv`. Para persistir `scrap.logs`, añade en `docker-compose.yml`:
+Volumes already mount `data.csv` (read-only) and `failed_cmp.csv` (read/write). To persist `scrap.logs`, add to `docker-compose.yml`:
 ```
     volumes:
       - ./data.csv:/app/data.csv:ro
@@ -57,6 +57,6 @@ Volúmenes ya montan `data.csv` y `failed_cmp.csv`. Para persistir `scrap.logs`,
       - ./scrap.logs:/app/scrap.logs
 ```
 
-## Notas reCAPTCHA v3
-- Es probabilístico; si el sitio rechaza el token, se reintenta según `--retries` y el CMP queda en `failed_cmp.csv`.
-- Usa pausas y tipeo con delays para parecer humano. Ejecutar en horarios de baja carga ayuda.
+## reCAPTCHA v3 notes
+- Scoring is probabilistic. If the site rejects the token and returns to the form, the CMP will be retried up to `--retries` times, then listed in `failed_cmp.csv`.
+- The script simulates human typing and includes pauses; running in `--headed` and during low-traffic hours can help improve success rates.
