@@ -287,6 +287,8 @@ def append_failed_cmp(path: str, cmp_value: str) -> None:
 
 def append_error_log(path: str, cmp_value: str, reason: str) -> None:
     """Registra el error completo para diagnóstico."""
+    if os.path.isdir(path):
+        path = os.path.join(path, "scrap.logs")
     try:
         with open(path, "a", encoding="utf-8") as fh:
             fh.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} CMP {cmp_value}: {reason}\n")
