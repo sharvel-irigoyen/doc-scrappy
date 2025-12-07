@@ -7,7 +7,7 @@ services:
       - ./data.csv:/app/data.csv:ro
       - ./failed_cmp.csv:/app/failed_cmp.csv
       - ./scrap.logs:/app/scrap.logs
-    command: ["python", "main.py", "--csv", "data.csv", "--failed-csv", "failed_cmp.csv", "--error-log", "scrap.logs", "--retries", "2"]
+    command: ["xvfb-run", "-a", "python", "main.py", "--csv", "data.csv", "--failed-csv", "failed_cmp.csv", "--error-log", "scrap.logs", "--retries", "2", "--headed"]
     networks:
       - default
       - comerciantes_net
