@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  scraper:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - ./data.csv:/app/data.csv:ro
+      - ./failed_cmp.csv:/app/failed_cmp.csv
+    command: ["python", "main.py", "--csv", "data.csv", "--failed-csv", "failed_cmp.csv", "--retries", "2"]

@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.env
+*.log
+
+# Playwright
+/ms-playwright/
+/playwright-report/
+
+# Scraper outputs
+failed_cmp.csv
+scrap.logs
+
+# Docker artifacts
+*.env.local
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

@@ -1,0 +1,4 @@
+pymysql
+beautifulsoup4
+playwright
+python-dotenv
