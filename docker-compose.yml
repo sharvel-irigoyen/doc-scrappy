@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   scraper:
     build: .
@@ -8,4 +6,13 @@ services:
     volumes:
       - ./data.csv:/app/data.csv:ro
       - ./failed_cmp.csv:/app/failed_cmp.csv
-    command: ["python", "main.py", "--csv", "data.csv", "--failed-csv", "failed_cmp.csv", "--retries", "2"]
+      - ./scrap.logs:/app/scrap.logs
+    command: ["python", "main.py", "--csv", "data.csv", "--failed-csv", "failed_cmp.csv", "--error-log", "scrap.logs", "--retries", "2"]
+    networks:
+      - default
+      - comerciantes
+
+networks:
+  comerciantes:
+    external: true
+    name: comerciantes_default
