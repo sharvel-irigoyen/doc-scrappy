@@ -12,6 +12,7 @@ __pycache__/
 # Scraper outputs
 failed_cmp.csv
 scrap.logs
+data.csv
 
 # Docker artifacts
 *.env.local
